@@ -13,3 +13,7 @@ node_modules
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+tailwind.config.js
+README.md
+.md
+.mjs
