@@ -9,5 +9,13 @@
   "arrowParens": "avoid",
   "trailingComma": "none",
   "printWidth": 80,
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ],
   "plugins": ["prettier-plugin-astro"]
 }
