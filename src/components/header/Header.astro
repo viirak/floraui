@@ -2,7 +2,7 @@
   <nav
     class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
     aria-label="Global">
-    <a href="#" class="-m-1.5 p-1.5">
+    <a href="/" class="-m-1.5 p-1.5">
       <span class="sr-only">Your Company</span>
       <img
         class="h-8 w-auto"
@@ -13,6 +13,7 @@
     <div class="flex lg:hidden">
       <button
         type="button"
+        id="mobile-menu-button"
         class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
         <span class="sr-only">Open main menu</span>
         <svg
@@ -33,27 +34,27 @@
     <div class="hidden lg:flex lg:gap-x-12">
       <a
         href="/"
-        class="hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
+        class="nav-link hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
         >Home</a
       >
       <a
         href="/portfolio"
-        class="hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
+        class="nav-link hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
         >Portfolio</a
       >
       <a
         href="/marketplace"
-        class="hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
+        class="nav-link hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
         >Marketplace</a
       >
       <a
         href="/about"
-        class="hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
+        class="nav-link hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
         >About</a
       >
       <a
         href="/contact"
-        class="hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
+        class="nav-link hover:text-indigo-500 text-sm/6 font-semibold text-gray-900"
         >Contact</a
       >
     </div>
@@ -63,13 +64,14 @@
   </div>
 
   <!-- Mobile menu, show/hide based on menu open state. -->
-  <div class="lg:hidden" role="dialog" aria-modal="true">
+  <div class="mobile-menu lg:hidden hidden" role="dialog" aria-modal="true" id="mobile-menu">
     <!-- Background backdrop, show/hide based on slide-over state. -->
-    <div class="fixed inset-0 z-10"></div>
+    <div class="fixed inset-0 z-10 bg-black/30 opacity-0 transition-opacity duration-300" id="mobile-backdrop"></div>
     <div
-      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+      class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transform translate-x-full transition-transform duration-300 ease-in-out"
+      id="mobile-sidebar">
       <div class="flex items-center justify-between">
-        <a href="#" class="-m-1.5 p-1.5">
+        <a href="/" class="-m-1.5 p-1.5">
           <span class="sr-only">Your Company</span>
           <img
             class="h-8 w-auto"
@@ -77,7 +79,7 @@
             alt=""
           />
         </a>
-        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+        <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" id="close-menu-button">
           <span class="sr-only">Close menu</span>
           <svg
             class="size-6"
@@ -99,27 +101,27 @@
           <div class="space-y-2 py-6">
             <a
               href="/"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+              class="mobile-nav-link -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
               >Home</a
             >
             <a
             href="/portfolio"
-            class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+            class="mobile-nav-link -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
               >Portfolio</a
             >
             <a
               href="/marketplace"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+              class="mobile-nav-link -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
               >Marketplace</a
             >
             <a
               href="/about"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+              class="mobile-nav-link -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
               >About</a
             >
             <a
               href="/contact"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+              class="mobile-nav-link -mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
               >Contact Us</a
             >
           </div>
@@ -128,3 +130,88 @@
     </div>
   </div>
 </header>
+
+<script is:inline>
+  function highlightActiveLink() {
+    const currentPath = window.location.pathname;
+    
+    // Handle desktop navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      const linkPath = link.getAttribute('href');
+      
+      if (linkPath === currentPath || 
+          (currentPath === '/' && linkPath === '/') || 
+          (currentPath !== '/' && linkPath !== '/' && currentPath.startsWith(linkPath))) {
+        link.classList.add('text-indigo-600');
+        link.classList.remove('text-gray-900');
+      } else {
+        link.classList.remove('text-indigo-600');
+        link.classList.add('text-gray-900');
+      }
+    });
+    
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      const linkPath = link.getAttribute('href');
+      
+      if (linkPath === currentPath || 
+          (currentPath === '/' && linkPath === '/') || 
+          (currentPath !== '/' && linkPath !== '/' && currentPath.startsWith(linkPath))) {
+        link.classList.add('bg-indigo-50', 'text-indigo-600');
+      } else {
+        link.classList.remove('bg-indigo-50', 'text-indigo-600');
+      }
+    });
+  }
+  
+  // Mobile menu functionality
+  function setupMobileMenu() {
+    const menuButton = document.getElementById('mobile-menu-button');
+    const closeButton = document.getElementById('close-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const backdrop = document.getElementById('mobile-backdrop');
+    
+    function openMenu() {
+
+      mobileMenu.classList.remove('hidden');
+      
+      setTimeout(() => {
+        mobileSidebar.classList.remove('translate-x-full');
+        backdrop.classList.remove('opacity-0');
+      }, 10);
+      
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMenu() {
+      mobileSidebar.classList.add('translate-x-full');
+      backdrop.classList.add('opacity-0');
+      
+      setTimeout(() => {
+        mobileMenu.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+    
+    if (menuButton) {
+      menuButton.addEventListener('click', openMenu);
+    }
+    
+    if (closeButton) {
+      closeButton.addEventListener('click', closeMenu);
+    }
+    
+    if (backdrop) {
+      backdrop.addEventListener('click', closeMenu);
+    }
+    
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    highlightActiveLink();
+    setupMobileMenu();
+  });
+</script>
