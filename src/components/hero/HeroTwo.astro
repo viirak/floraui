@@ -1,0 +1,77 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  primaryBtnText?: string;
+  secondaryBtnText?: string;
+  announcementText?: string;
+  announcementLink?: string;
+}
+
+const {
+  title = "Data to enrich your online business",
+  description = "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.",
+  primaryBtnText = "Get started",
+  secondaryBtnText = "Learn more",
+  announcementText = "Announcing our next round of funding.",
+  announcementLink = "Read more",
+} = Astro.props;
+---
+
+<div class="bg-gradient-to-b from-white to-indigo-50">
+  <div class="relative isolate px-6 pt-14 lg:px-8">
+    <!-- Top decoration -->
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+      <div class="relative left-[calc(50%-11rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-purple-600 to-indigo-400 opacity-25 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+    </div>
+    
+    <div class="mx-auto max-w-3xl py-24 sm:py-32 lg:py-40">
+      <!-- Announcement badge -->
+      <div class="hidden sm:mb-10 sm:flex sm:justify-center">
+        <div class="relative overflow-hidden rounded-full px-4 py-1.5 text-sm leading-6 text-gray-700 ring-1 ring-gray-900/10 backdrop-blur transition-all duration-300 hover:ring-gray-900/30 hover:bg-white/60 group">
+          <span>{announcementText}</span>
+          <a href="#" class="ml-1 font-semibold text-indigo-600 inline-flex items-center group-hover:text-indigo-500">
+            <span class="absolute inset-0" aria-hidden="true"></span>{announcementLink}
+            <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Main content -->
+      <div class="text-center">
+        <h1 class="text-5xl font-bold tracking-tight text-balance text-gray-900 sm:text-6xl md:text-7xl animate-fade-in">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 to-purple-700">{title}</span>
+        </h1>
+        <p class="mt-8 text-lg font-medium text-pretty text-gray-600 sm:text-xl/8 max-w-2xl mx-auto">{description}</p>
+        
+        <!-- CTA buttons -->
+        <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-x-8">
+          <a href="#" class="rounded-lg bg-indigo-600 px-6 py-3 text-base font-semibold text-white shadow-lg hover:bg-indigo-500 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            {primaryBtnText}
+          </a>
+          <a href="#" class="text-base font-semibold text-gray-800 flex items-center gap-1 group">
+            {secondaryBtnText}
+            <span aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom decoration -->
+    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]" aria-hidden="true">
+      <div class="relative left-[calc(50%+3rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-purple-600 to-indigo-400 opacity-25 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+</style>
