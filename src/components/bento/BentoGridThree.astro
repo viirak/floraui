@@ -1,0 +1,155 @@
+---
+// Define product item interface
+interface ProductItem {
+  id: string;
+  image: string;
+  category: string;
+  title: string;
+  description: string;
+  objectPosition?: string;
+  specialCorner?: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | null;
+}
+
+// Define props interface
+interface Props {
+  title?: string;
+  subtitle?: string;
+  products?: ProductItem[];
+}
+
+// Default props
+const {
+  title = "All Products",
+  subtitle = "Everything is for Sale, Call us Now",
+  products = [
+    {
+      id: "product-1",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png",
+      category: "Performance",
+      title: "Lightning-fast builds",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque.",
+      objectPosition: "object-left",
+      specialCorner: "topLeft"
+    },
+    {
+      id: "product-2",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png",
+      category: "Integrations",
+      title: "Connect your favorite tools",
+      description: "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
+    },
+    {
+      id: "product-3",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png",
+      category: "Releases",
+      title: "Push to deploy",
+      description: "Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus massa, laoreet dapibus ex elit vitae odio.",
+      objectPosition: "object-left lg:object-right",
+      specialCorner: "topRight"
+    },
+    {
+      id: "product-4",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png",
+      category: "Integrations",
+      title: "Connect your favorite tools",
+      description: "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
+    },
+    {
+      id: "product-5",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png",
+      category: "Integrations",
+      title: "Connect your favorite tools",
+      description: "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
+    },
+    {
+      id: "product-6",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png",
+      category: "Integrations",
+      title: "Connect your favorite tools",
+      description: "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
+    },
+    {
+      id: "product-7",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png",
+      category: "Speed",
+      title: "Built for power users",
+      description: "Sed congue eros non finibus molestie. Vestibulum euismod augue.",
+      objectPosition: "object-left",
+      specialCorner: "bottomLeft"
+    },
+    {
+      id: "product-8",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png",
+      category: "Integrations",
+      title: "Connect your favorite tools",
+      description: "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
+    },
+    {
+      id: "product-9",
+      image: "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png",
+      category: "Network",
+      title: "Globally distributed CDN",
+      description: "Aenean vulputate justo commodo auctor vehicula in malesuada semper.",
+      specialCorner: "bottomRight"
+    }
+  ]
+} = Astro.props;
+
+// Helper function to determine corner classes
+const getCornerClasses = (specialCorner: ProductItem['specialCorner']) => {
+  switch(specialCorner) {
+    case 'topLeft':
+      return {
+        outer: 'max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]',
+        inner: 'max-lg:rounded-t-[calc(2rem+1px)] lg:rounded-tl-[calc(2rem+1px)]'
+      };
+    case 'topRight':
+      return {
+        outer: 'lg:rounded-tr-[2rem]',
+        inner: 'lg:rounded-tr-[calc(2rem+1px)]'
+      };
+    case 'bottomLeft':
+      return {
+        outer: 'lg:rounded-bl-[2rem]',
+        inner: 'lg:rounded-bl-[calc(2rem+1px)]'
+      };
+    case 'bottomRight':
+      return {
+        outer: 'max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]',
+        inner: 'max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-br-[calc(2rem+1px)]'
+      };
+    default:
+      return {
+        outer: '',
+        inner: ''
+      };
+  }
+};
+---
+
+<div class="bg-white py-24 sm:py-32">
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    <h2 class="text-base/7 font-semibold text-indigo-600">{title}</h2>
+    <p class="mt-2 max-w-lg text-4xl font-semibold tracking-tight text-pretty text-gray-950 sm:text-5xl">{subtitle}</p>
+    
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
+      {products.map((product, index) => {
+        const cornerClasses = getCornerClasses(product.specialCorner);
+        return (
+          <div class="relative lg:col-span-2">
+            <div class={`absolute inset-px rounded-lg bg-white ${cornerClasses.outer}`}></div>
+            <div class={`relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] ${cornerClasses.inner}`}>
+              <img class={`h-80 object-cover ${product.objectPosition || ''}`} src={product.image} alt={product.title}>
+              <div class="p-10 pt-4">
+                <h3 class="text-sm/4 font-semibold text-indigo-600">{product.category}</h3>
+                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{product.title}</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{product.description}</p>
+              </div>
+            </div>
+            <div class={`pointer-events-none absolute inset-px rounded-lg shadow-sm ring-1 ring-black/5 ${cornerClasses.outer}`}></div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
