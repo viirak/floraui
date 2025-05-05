@@ -1,0 +1,190 @@
+---
+interface NavItem {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  logoSrc?: string;
+  logoAlt?: string;
+  navItems?: NavItem[];
+  contactBtnText?: string;
+  contactBtnHref?: string;
+}
+
+const {
+  logoSrc = "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600",
+  logoAlt = "Your Company",
+  navItems = [
+    { name: "Product", href: "/product" },
+    { name: "Features", href: "/feature" },
+    { name: "Marketplace", href: "/marketplace" },
+    { name: "About", href: "/about" },
+  ],
+  contactBtnText = "Contact Us",
+  contactBtnHref = "/contact",
+} = Astro.props;
+---
+
+<!-- Using DaisyUI drawer component for mobile menu -->
+<div class="drawer lg:drawer-end">
+  <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
+  
+  <!-- Page content -->
+  <div class="drawer-content flex flex-col">
+    <header class="sticky top-0 z-40 border-b border-gray-100 backdrop-blur-lg bg-white/90">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
+        <div class="flex lg:flex-1">
+          <a href="/" class="-m-1.5 p-1.5 transition-transform duration-200 hover:scale-105">
+            <span class="sr-only">{logoAlt}</span>
+            <img class="h-8 w-auto" src={logoSrc} alt={logoAlt}>
+          </a>
+        </div>
+        
+        <!-- Mobile menu button (uses DaisyUI drawer) -->
+        <div class="flex lg:hidden">
+          <label for="mobile-drawer" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+            <span class="sr-only">Open main menu</span>
+            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </label>
+        </div>
+        
+        <!-- Desktop navigation links -->
+        <div class="hidden lg:flex lg:gap-x-8">
+          {navItems.map(item => (
+            <a 
+              href={item.href} 
+              class="nav-link text-sm font-semibold relative py-2 px-1 transition-colors duration-200 text-gray-700 hover:text-indigo-600"
+            >
+              {item.name}
+            </a>
+          ))}
+        </div>
+        
+        <!-- Contact button (desktop) -->
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+          <a 
+            href={contactBtnHref} 
+            class="contact-btn inline-flex items-center rounded-full bg-indigo-50 px-4 py-1.5 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100 hover:text-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
+          >
+            {contactBtnText}
+            <svg class="ml-1.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </a>
+        </div>
+      </nav>
+    </header>
+  </div>
+  
+  <!-- Drawer side (mobile menu) -->
+  <div class="drawer-side z-50">
+    <label for="mobile-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+    
+    <div class="min-h-full w-full sm:max-w-sm bg-white px-6 py-6">
+      <div class="flex items-center justify-between">
+        <a href="/" class="-m-1.5 p-1.5">
+          <span class="sr-only">{logoAlt}</span>
+          <img class="h-8 w-auto" src={logoSrc} alt={logoAlt}>
+        </a>
+        <label for="mobile-drawer" class="-m-2.5 rounded-md p-2.5 text-gray-700 hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+          <span class="sr-only">Close menu</span>
+          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </label>
+      </div>
+      
+      <div class="mt-6 flow-root">
+        <div class="-my-6 divide-y divide-gray-500/10">
+          <div class="space-y-2 py-6">
+            {navItems.map(item => (
+              <a 
+                href={item.href} 
+                class="mobile-nav-link -mx-3 block rounded-lg px-3 py-2 text-base font-semibold transition-colors duration-200 text-gray-700 hover:bg-gray-50"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+          <div class="py-6">
+            <a 
+              href={contactBtnHref} 
+              class="mobile-contact-btn inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-base font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
+            >
+              {contactBtnText}
+              <svg class="ml-1.5 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  // Handle active navigation links based on current path
+  function highlightActiveLinks() {
+    const currentPath = window.location.pathname;
+    
+    // Handle desktop navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      const linkPath = link.getAttribute('href');
+      
+      if (linkPath === currentPath || 
+          (currentPath === '/' && linkPath === '/') || 
+          (currentPath !== '/' && linkPath !== '/' && currentPath.startsWith(linkPath))) {
+        link.classList.add('text-indigo-600');
+        link.classList.remove('text-gray-700');
+        link.classList.add('after:absolute', 'after:bottom-0', 'after:left-0', 'after:h-0.5', 'after:w-full', 'after:bg-indigo-600', 'after:rounded-full');
+      } else {
+        link.classList.remove('text-indigo-600');
+        link.classList.add('text-gray-700');
+        link.classList.remove('after:absolute', 'after:bottom-0', 'after:left-0', 'after:h-0.5', 'after:w-full', 'after:bg-indigo-600', 'after:rounded-full');
+      }
+    });
+    
+    // Handle mobile navigation links
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      const linkPath = link.getAttribute('href');
+      
+      if (linkPath === currentPath || 
+          (currentPath === '/' && linkPath === '/') || 
+          (currentPath !== '/' && linkPath !== '/' && currentPath.startsWith(linkPath))) {
+        link.classList.add('text-indigo-600', 'bg-indigo-50');
+        link.classList.remove('text-gray-700');
+      } else {
+        link.classList.remove('text-indigo-600', 'bg-indigo-50');
+        link.classList.add('text-gray-700');
+      }
+    });
+    
+    // Handle contact button
+    const contactBtn = document.querySelector('.contact-btn');
+    const mobileContactBtn = document.querySelector('.mobile-contact-btn');
+    const contactPath = contactBtn?.getAttribute('href');
+    
+    if (contactPath === currentPath) {
+      contactBtn?.classList.add('bg-indigo-600', 'text-white');
+      contactBtn?.classList.remove('bg-indigo-50', 'text-indigo-600');
+      mobileContactBtn?.classList.add('bg-indigo-700');
+      mobileContactBtn?.classList.remove('bg-indigo-600');
+    }
+  }
+
+  // Auto-close drawer when clicking a link
+  document.addEventListener('DOMContentLoaded', () => {
+    highlightActiveLinks();
+    
+    // Close drawer when clicking navigation links
+    document.querySelectorAll('.mobile-nav-link, .mobile-contact-btn').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobile-drawer').checked = false;
+      });
+    });
+  });
+</script>
