@@ -1,0 +1,262 @@
+---
+export interface FormField {
+  id: string;
+  label: string;
+  type: string;
+  placeholder?: string;
+  required?: boolean;
+  autocomplete?: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  author: {
+    name: string;
+    title: string;
+    avatar: string;
+  };
+}
+
+export interface Props {
+  title?: string;
+  description?: string;
+  formAction?: string;
+  formMethod?: string;
+  formFields?: {
+    firstName?: FormField;
+    lastName?: FormField;
+    budget?: FormField;
+    website?: FormField;
+    message?: FormField;
+  };
+  submitButton?: {
+    text: string;
+    color?: string;
+  };
+  privacyText?: string;
+  privacyLink?: {
+    text: string;
+    url: string;
+  };
+  showPattern?: boolean;
+  backgroundColor?: string;
+  primaryColor?: string;
+  companyLogo?: {
+    src: string;
+    alt: string;
+  };
+  testimonial?: Testimonial;
+}
+
+// Default values for props
+const {
+  title = "Let's talk about your project",
+  description = "We help companies and individuals build out their brand guidelines.",
+  formAction = "#",
+  formMethod = "POST",
+  formFields = {
+    firstName: {
+      id: "first-name",
+      label: "First name",
+      type: "text",
+      placeholder: "Your first name",
+      required: true,
+      autocomplete: "given-name"
+    },
+    lastName: {
+      id: "last-name",
+      label: "Last name",
+      type: "text",
+      placeholder: "Your last name",
+      required: true,
+      autocomplete: "family-name"
+    },
+    budget: {
+      id: "budget",
+      label: "Budget",
+      type: "text",
+      placeholder: "Your budget range",
+      required: false
+    },
+    website: {
+      id: "website",
+      label: "Website",
+      type: "url",
+      placeholder: "Your website URL",
+      required: false
+    },
+    message: {
+      id: "message",
+      label: "Message",
+      type: "textarea",
+      placeholder: "Tell us about your project",
+      required: true
+    }
+  },
+  submitButton = {
+    text: "Let's talk",
+    color: "primary"
+  },
+  privacyText = "By submitting this form, I agree to the",
+  privacyLink = {
+    text: "privacy policy",
+    url: "#"
+  },
+  showPattern = true,
+  backgroundColor = "bg-base-100",
+  primaryColor = "primary",
+  companyLogo = {
+    src: "https://tailwindcss.com/plus-assets/img/logos/workcation-logo-indigo-600.svg",
+    alt: "Company logo"
+  },
+  testimonial = {
+    quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.",
+    author: {
+      name: "Brenna Goyette",
+      title: "CEO of Workcation",
+      avatar: "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=96&h=96&q=80"
+    }
+  }
+} = Astro.props;
+
+// Generate a unique ID for the pattern
+const patternId = `pattern-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div class={`relative isolate ${backgroundColor} px-6 py-24 sm:py-32 lg:px-8`}>
+  {showPattern && (
+    <svg class="absolute inset-0 -z-10 size-full [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)] stroke-base-300" aria-hidden="true">
+      <defs>
+        <pattern id={patternId} width="200" height="200" x="50%" y="-64" patternUnits="userSpaceOnUse">
+          <path d="M100 200V.5M.5 .5H200" fill="none" />
+        </pattern>
+      </defs>
+      <svg x="50%" y="-64" class="overflow-visible fill-base-200">
+        <path d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M299.5 800h201v201h-201Z" stroke-width="0" />
+      </svg>
+      <rect width="100%" height="100%" stroke-width="0" fill={`url(#${patternId})`} />
+    </svg>
+  )}
+  
+  <div class="mx-auto max-w-xl lg:max-w-4xl">
+    <h2 class="text-4xl font-semibold tracking-tight text-pretty text-base-content sm:text-5xl">{title}</h2>
+    <p class="mt-2 text-lg/8 text-base-content/80">{description}</p>
+    
+    <div class="mt-16 flex flex-col gap-16 sm:gap-y-20 lg:flex-row">
+      <form action={formAction} method={formMethod} class="lg:flex-auto">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div>
+            <label for={formFields?.firstName?.id} class="label">
+              <span class="label-text font-semibold">{formFields?.firstName?.label}</span>
+            </label>
+            <input 
+              type={formFields?.firstName?.type} 
+              name={formFields?.firstName?.id} 
+              id={formFields?.firstName?.id} 
+              autocomplete={formFields?.firstName?.autocomplete}
+              placeholder={formFields?.firstName?.placeholder}
+              required={formFields?.firstName?.required}
+              class="input input-bordered w-full"
+            />
+          </div>
+          
+          <div>
+            <label for={formFields?.lastName?.id} class="label">
+              <span class="label-text font-semibold">{formFields?.lastName?.label}</span>
+            </label>
+            <input 
+              type={formFields?.lastName?.type} 
+              name={formFields?.lastName?.id} 
+              id={formFields?.lastName?.id} 
+              autocomplete={formFields?.lastName?.autocomplete}
+              placeholder={formFields?.lastName?.placeholder}
+              required={formFields?.lastName?.required}
+              class="input input-bordered w-full"
+            />
+          </div>
+          
+          <div>
+            <label for={formFields?.budget?.id} class="label">
+              <span class="label-text font-semibold">{formFields?.budget?.label}</span>
+            </label>
+            <input 
+              type={formFields?.budget?.type} 
+              name={formFields?.budget?.id} 
+              id={formFields?.budget?.id} 
+              placeholder={formFields?.budget?.placeholder}
+              required={formFields?.budget?.required}
+              class="input input-bordered w-full"
+            />
+          </div>
+          
+          <div>
+            <label for={formFields?.website?.id} class="label">
+              <span class="label-text font-semibold">{formFields?.website?.label}</span>
+            </label>
+            <input 
+              type={formFields?.website?.type} 
+              name={formFields?.website?.id} 
+              id={formFields?.website?.id} 
+              placeholder={formFields?.website?.placeholder}
+              required={formFields?.website?.required}
+              class="input input-bordered w-full"
+            />
+          </div>
+          
+          <div class="sm:col-span-2">
+            <label for={formFields?.message?.id} class="label">
+              <span class="label-text font-semibold">{formFields?.message?.label}</span>
+            </label>
+            <textarea 
+              id={formFields?.message?.id} 
+              name={formFields?.message?.id} 
+              rows="4" 
+              placeholder={formFields?.message?.placeholder}
+              required={formFields?.message?.required}
+              class="textarea textarea-bordered w-full"
+            ></textarea>
+          </div>
+        </div>
+        
+        <div class="mt-10">
+          <button 
+            type="submit" 
+            class={`btn btn-${submitButton.color} w-full`}
+          >
+            {submitButton.text}
+          </button>
+        </div>
+        
+        <p class="mt-4 text-sm text-base-content/70">
+          {privacyText} <a href={privacyLink.url} class={`font-semibold text-${primaryColor} hover:underline`}>{privacyLink.text}</a>.
+        </p>
+      </form>
+      
+      {testimonial && (
+        <div class="lg:mt-6 lg:w-80 lg:flex-none">
+          {companyLogo && (
+            <img class="h-12 w-auto" src={companyLogo.src} alt={companyLogo.alt} />
+          )}
+          
+          <figure class="mt-10 card bg-base-200/30 p-6 rounded-xl">
+            <blockquote class="text-lg/8 font-semibold text-base-content">
+              <p>"{testimonial.quote}"</p>
+            </blockquote>
+            
+            <figcaption class="mt-6 flex items-center gap-x-4">
+              <img 
+                src={testimonial.author.avatar} 
+                alt={`Avatar of ${testimonial.author.name}`} 
+                class="size-12 rounded-full object-cover"
+              />
+              <div>
+                <div class="font-semibold">{testimonial.author.name}</div>
+                <div class="text-sm text-base-content/70">{testimonial.author.title}</div>
+              </div>
+            </figcaption>
+          </figure>
+        </div>
+      )}
+    </div>
+  </div>
+</div>
