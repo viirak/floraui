@@ -1,37 +1,64 @@
+---
+interface Props {
+  logoSrc?: string;
+  logoAlt?: string;
+  announcementText?: string;
+  announcementLink?: string;
+  title?: string;
+  description?: string;
+  primaryBtnText?: string;
+  secondaryBtnText?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const {
+  logoSrc = "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600",
+  logoAlt = "Your Company",
+  announcementText = "Anim aute id magna aliqua ad ad non deserunt sunt.",
+  announcementLink = "Read more",
+  title = "Data to enrich your business",
+  description = "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.",
+  primaryBtnText = "Get started",
+  secondaryBtnText = "Learn more",
+  imageSrc = "https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2102&q=80",
+  imageAlt = "Office workspace with modern design"
+} = Astro.props;
+---
+
 <div
-  class="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-gray-100">
+  class="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-gray-100 p-5">
   <div class="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
     <div
       class="px-6 pt-10 pb-24 sm:pb-28 lg:col-span-7 lg:px-0 lg:py-32 xl:col-span-6">
       <div class="mx-auto max-w-lg lg:mx-0">
         <img
           class="h-14 transition-transform hover:scale-105"
-          src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
+          src={logoSrc}
+          alt={logoAlt}
         />
         <div class="hidden sm:mt-16 sm:flex lg:mt-8">
           <div
             class="relative rounded-full px-4 py-1.5 text-sm/6 text-gray-600 ring-1 ring-indigo-300 hover:ring-indigo-500 transition-all duration-300">
             <span class="absolute inset-0 bg-indigo-50/50 rounded-full -z-10"
             ></span>
-            Anim aute id magna aliqua ad ad non deserunt sunt. <a
+            {announcementText} <a
               href="#"
               class="font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-700 transition-colors"
-              ><span class="absolute inset-0" aria-hidden="true"></span>Read
-              more <span aria-hidden="true">&rarr;</span></a
+              ><span class="absolute inset-0" aria-hidden="true"></span>{announcementLink}
+              <span aria-hidden="true">&rarr;</span></a
             >
           </div>
         </div>
 
         <h1
           class="mt-10 text-4xl font-bold tracking-tight text-pretty sm:mt-6 sm:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">
-          Data to enrich your business
+          {title}
         </h1>
 
         <p
           class="mt-4 text-base leading-relaxed text-pretty text-gray-600 sm:text-lg/8">
-          Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem
-          cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
+          {description}
         </p>
 
         <div
@@ -39,12 +66,12 @@
           <a
             href="#"
             class="w-full sm:w-auto rounded-lg bg-indigo-600 px-5 py-2.5 text-center text-sm font-semibold text-white shadow-lg hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300"
-            >Get started</a
+            >{primaryBtnText}</a
           >
           <a
             href="#"
             class="w-full sm:w-auto rounded-lg border border-gray-300 bg-white/80 px-5 py-2.5 text-center text-sm font-semibold text-gray-900 hover:bg-gray-50 transition-all duration-300"
-            >Learn more <span aria-hidden="true">→</span></a
+            >{secondaryBtnText} <span aria-hidden="true">→</span></a
           >
         </div>
       </div>
@@ -55,8 +82,8 @@
       <div class="overflow-hidden rounded-2xl shadow-2xl w-full">
         <img
           class="aspect-3/2 w-full bg-gray-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
-          src="https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2102&q=80"
-          alt="Office workspace with modern design"
+          src={imageSrc}
+          alt={imageAlt}
         />
       </div>
     </div>
