@@ -1,0 +1,94 @@
+---
+interface Logo {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface Props {
+  heading?: string;
+  description?: string;
+  cta?: {
+    label: string;
+    url: string;
+  };
+  logos?: Logo[];
+}
+
+// Default values
+const {
+  heading = "Trusted by the most innovative teams",
+  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam sed. Quam a scelerisque amet ullamcorper eu enim et fermentum, augue.",
+  cta = {
+    label: "Contact Us",
+    url: "contact"
+  },
+  logos = [
+    {
+      src: "https://tailwindcss.com/plus-assets/img/logos/tuple-logo-gray-900.svg",
+      alt: "Tuple",
+      width: 105,
+      height: 48
+    },
+    {
+      src: "https://tailwindcss.com/plus-assets/img/logos/reform-logo-gray-900.svg",
+      alt: "Reform",
+      width: 104,
+      height: 48
+    },
+    {
+      src: "https://tailwindcss.com/plus-assets/img/logos/savvycal-logo-gray-900.svg",
+      alt: "SavvyCal",
+      width: 140,
+      height: 48
+    },
+    {
+      src: "https://tailwindcss.com/plus-assets/img/logos/laravel-logo-gray-900.svg",
+      alt: "Laravel",
+      width: 136,
+      height: 48
+    },
+    {
+      src: "https://tailwindcss.com/plus-assets/img/logos/transistor-logo-gray-900.svg",
+      alt: "Transistor",
+      width: 158,
+      height: 48
+    },
+    {
+      src: "https://tailwindcss.com/plus-assets/img/logos/statamic-logo-gray-900.svg",
+      alt: "Statamic",
+      width: 147,
+      height: 48
+    }
+  ]
+} = Astro.props;
+---
+
+<div class="bg-white py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="grid grid-cols-1 items-center gap-x-8 gap-y-16 lg:grid-cols-2">
+      <div class="mx-auto w-full max-w-xl lg:mx-0">
+        <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">{heading}</h2>
+        <p class="mt-6 text-lg/8 text-gray-600">{description}</p>
+        <div class="mt-8 flex items-center gap-x-6">
+          <a href={cta.url} class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-300 hover:shadow-md">{cta.label} <span aria-hidden="true" class="group-hover:translate-x-1">&rarr;</span></a>
+        </div>
+      </div>
+      <div class="mx-auto grid w-full max-w-xl grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 items-center gap-8 sm:gap-10 lg:mx-0 lg:max-w-none lg:pl-8">
+        {logos.map(logo => (
+          <div class="p-4 rounded-lg hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 flex justify-center">
+            <img 
+              class="max-h-12 w-full object-contain" 
+              src={logo.src} 
+              alt={logo.alt} 
+              width={logo.width} 
+              height={logo.height} 
+              loading="lazy"
+            >
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
