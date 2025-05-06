@@ -1,0 +1,121 @@
+---
+// Define FAQ item interface
+interface FaqItem {
+  id: string;
+  question: string;
+  answer: string;
+  expanded?: boolean;
+}
+
+// Define props interface
+interface Props {
+  title?: string;
+  faqs?: FaqItem[];
+  bgColor?: string;
+}
+
+// Default props
+const {
+  title = "Frequently asked questions",
+  faqs = [
+    {
+      id: "faq-1",
+      question: "What's the best thing about Switzerland?",
+      answer: "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      expanded: false
+    },
+    {
+      id: "faq-2",
+      question: "How do you make holy water?",
+      answer: "You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      expanded: false
+    },
+    {
+      id: "faq-3",
+      question: "What do you call someone with no body and no nose?",
+      answer: "Nobody knows. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      expanded: false
+    },
+    {
+      id: "faq-4",
+      question: "Why do you never see elephants hiding in trees?",
+      answer: "Because they're so good at it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      expanded: false
+    },
+    {
+      id: "faq-5",
+      question: "How many tickles does it take to make an octopus laugh?",
+      answer: "Ten tickles. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+      expanded: false
+    }
+  ],
+  bgColor = "bg-white"
+} = Astro.props;
+---
+
+<div class={bgColor}>
+  <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{title}</h2>
+      <dl class="mt-16 divide-y divide-gray-900/10">
+        {faqs.map((faq, index) => (
+          <div class="py-6 first:pt-0 last:pb-0">
+            <dt>
+              <button 
+                type="button" 
+                class="flex w-full items-start justify-between text-left text-gray-900 faq-button" 
+                aria-controls={faq.id} 
+                aria-expanded={faq.expanded ? "true" : "false"}
+                data-faq-index={index}
+              >
+                <span class="text-base/7 font-semibold">{faq.question}</span>
+                <span class="ml-6 flex h-7 items-center">
+                  <svg class={`size-6 plus-icon ${faq.expanded ? 'hidden' : ''}`} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                  </svg>
+                  <svg class={`size-6 minus-icon ${faq.expanded ? '' : 'hidden'}`} fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd class={`mt-2 pr-12 faq-answer ${faq.expanded ? '' : 'hidden'}`} id={faq.id}>
+              <p class="text-base/7 text-gray-600">{faq.answer}</p>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Handle FAQ expand/collapse functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqButtons = document.querySelectorAll('.faq-button');
+    
+    faqButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        const controlId = button.getAttribute('aria-controls');
+        const answer = document.getElementById(controlId);
+        const plusIcon = button.querySelector('.plus-icon');
+        const minusIcon = button.querySelector('.minus-icon');
+        
+        // Toggle expanded state
+        button.setAttribute('aria-expanded', (!expanded).toString());
+        
+        // Toggle visibility of answer
+        if (answer) {
+          answer.classList.toggle('hidden');
+        }
+        
+        // Toggle icons
+        if (plusIcon && minusIcon) {
+          plusIcon.classList.toggle('hidden');
+          minusIcon.classList.toggle('hidden');
+        }
+      });
+    });
+  });
+</script>
