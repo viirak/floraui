@@ -85,7 +85,7 @@ const {
           <p class="text-base/7 font-semibold text-indigo-600">{content.label}</p>
           <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">{content.heading}</h1>
           <div class="max-w-xl">
-            {content.paragraphs.map((paragraph, i) => (
+            {content.paragraphs?.map((paragraph, i) => (
               <p class={i === 0 ? "mt-6" : "mt-8"}>{paragraph}</p>
             ))}
           </div>
