@@ -1,4 +1,5 @@
 ---
+import ContentThree from "../components/content/ContentThree.astro"
 import Cta from "../components/cta/Cta.astro"
 import CtaTwo from "../components/cta/CtaTwo.astro"
 import Feature from "../components/feature/Feature.astro"
@@ -6,17 +7,24 @@ import Pricing from "../components/pricing/Pricing.astro"
 import Service from "../components/service/Service.astro"
 import ServiceTwo from "../components/service/ServiceTwo.astro"
 import Layout from "../layouts/Layout.astro"
+import LayoutThree from "../layouts/LayoutThree.astro"
 import LayoutTwo from "../layouts/LayoutTwo.astro"
 ---
 
-<Layout title="Marketplace">
+<!-- <Layout title="Marketplace">
   <Feature />
   <Service />
   <Cta />
-</Layout>
+</Layout> -->
 
 <!-- <LayoutTwo title="Marketplace">
   <Pricing />
   <ServiceTwo />
   <CtaTwo />
 </LayoutTwo> -->
+
+<LayoutThree title="Marketplace">
+  <ContentThree />
+  <Service />
+  <Cta />
+</LayoutThree>
