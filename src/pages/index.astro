@@ -15,24 +15,42 @@ import BentoGridTwo from "../components/bento/BentoGridTwo.astro"
 import ContactTwo from "../components/contact/ContactTwo.astro"
 import CtaTwo from "../components/cta/CtaTwo.astro"
 import LayoutTwo from "../layouts/LayoutTwo.astro"
+import Blog from "../components/blog/Blog.astro"
+import LayoutThree from "../layouts/LayoutThree.astro"
+import Carousel from "../components/hero/Carousel.astro"
+import LogoCloudsThree from "../components/logoClouds/LogoCloudsThree.astro"
+import ContentThree from "../components/content/ContentThree.astro"
+import Testimonials from "../components/testimonials/Testimonials.astro"
+import CtaThree from "../components/cta/CtaThree.astro"
+import ContentFour from "../components/content/ContentFour.astro"
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout title="Welcome Page">
+<!-- <Layout title="Welcome Page">
   <Hero />
   <LogoClouds />
   <Service />
   <Team />
   <ContactUs />
-</Layout>
+</Layout> -->
 
 <!-- <LayoutTwo title="Home">
   <HeroTwo />
   <LogoCloudsTwo  />
   <ServiceTwo />
+  <Blog />
   <TeamTwo />
   <CtaTwo />
   <ContactTwo />
 </LayoutTwo> -->
+
+<LayoutThree title="Home">
+  <Carousel />
+  <LogoCloudsThree  />
+  <ContentFour />
+  <TeamThree />
+  <CtaThree />
+  <Testimonials />
+</LayoutThree>
