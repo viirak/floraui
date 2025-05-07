@@ -1,0 +1,68 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  mediaType?: 'image' | 'video';
+  mediaSrc?: string;
+  mediaAlt?: string;
+  posterSrc?: string;
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  controls?: boolean;
+  backgroundColor?: string;
+  textColor?: string;
+}
+
+const {
+  title = "Everything you need to deploy your app",
+  description = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
+  mediaType = "image",
+  mediaSrc = "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png",
+  mediaAlt = "",
+  posterSrc,
+  autoplay = true,
+  loop = true,
+  muted = true,
+  controls = false,
+  backgroundColor = "bg-white",
+  textColor = "text-gray-900"
+} = Astro.props;
+---
+
+<div class={`overflow-hidden ${backgroundColor} py-24 sm:py-32`}>
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl">
+      <p class={`text-5xl font-semibold tracking-tight text-pretty ${textColor} sm:text-6xl sm:text-balance`}>
+        {title}
+      </p>
+      {description && <p class="mt-6 text-lg leading-8 text-gray-600">{description}</p>}
+    </div>
+    
+    <div class="relative mt-16 aspect-2432/1442 h-[36rem] sm:h-auto sm:w-[calc(var(--container-7xl)-calc(var(--spacing)*16))]">
+      <div class="absolute -inset-2 rounded-[calc(var(--radius-xl)+calc(var(--spacing)*2))] shadow-xs ring-1 ring-black/5"></div>
+      
+      {mediaType === 'image' ? (
+        <img 
+          src={mediaSrc} 
+          alt={mediaAlt} 
+          class="h-full w-full object-cover rounded-xl shadow-2xl ring-1 ring-black/10"
+          loading="lazy"
+        />
+      ) : (
+        <video
+          src={mediaSrc}
+          poster={posterSrc}
+          class="h-full w-full object-cover rounded-xl shadow-2xl ring-1 ring-black/10"
+          autoplay={autoplay}
+          loop={loop}
+          muted={muted}
+          controls={controls}
+          playsinline
+        >
+          Your browser does not support the video tag.
+        </video>
+      )}
+    </div>
+  </div>
+</div>
