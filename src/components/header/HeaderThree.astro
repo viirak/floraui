@@ -56,19 +56,19 @@ const {
         }
       ]
     },
-    { label: "Features", href: "#" },
-    { label: "Marketplace", href: "#" },
-    { label: "Company", href: "#" }
+    { label: "Features", href: "/feature" },
+    { label: "Marketplace", href: "/marketplace" },
+    { label: "Company", href: "about" }
   ],
   ctaText = "Find Us",
-  ctaHref = "#"
+  ctaHref = "contact"
 } = Astro.props;
 ---
 
 <header class="relative isolate z-10 border-b border-gray-900/10 bg-white">
   <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
     <div class="flex lg:flex-1">
-      <a href="#" class="-m-1.5 p-1.5 transition duration-200 hover:opacity-80">
+      <a href="/" class="-m-1.5 p-1.5 transition duration-200 hover:opacity-80">
         <span class="sr-only">{companyName}</span>
         <img class="h-8 w-auto" src={logoSrc} alt={logoAlt}>
       </a>
@@ -118,7 +118,7 @@ const {
               <div class="bg-gray-50">
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                   <div class="grid grid-cols-3 divide-x divide-gray-900/5 border-x border-gray-900/5">
-                    <a href="#" class="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 transition duration-200 hover:bg-gray-100 hover:text-indigo-600 active:bg-gray-200">
+                    <a href="/demo" class="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 transition duration-200 hover:bg-gray-100 hover:text-indigo-600 active:bg-gray-200">
                       <svg class="size-5 flex-none text-gray-400 transition duration-200 group-hover:text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                         <path fill-rule="evenodd" d="M2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm6.39-2.908a.75.75 0 0 1 .766.027l3.5 2.25a.75.75 0 0 1 0 1.262l-3.5 2.25A.75.75 0 0 1 8 12.25v-4.5a.75.75 0 0 1 .39-.658Z" clip-rule="evenodd" />
                       </svg>
