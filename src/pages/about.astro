@@ -1,19 +1,29 @@
 ---
+import Blog from "../components/blog/Blog.astro"
 import Content from "../components/content/Content.astro"
+import ContentFive from "../components/content/ContentFive.astro"
 import ContentTwo from "../components/content/ContentTwo.astro"
+import FaqTwo from "../components/Faq/FaqTwo.astro"
 import Team from "../components/team/Team.astro"
 import TeamThree from "../components/team/TeamThree.astro"
 import TeamTwo from "../components/team/TeamTwo.astro"
 import Layout from "../layouts/Layout.astro"
+import LayoutThree from "../layouts/LayoutThree.astro"
 import LayoutTwo from "../layouts/LayoutTwo.astro"
 ---
 
-<Layout title="About Us">
+<!-- <Layout title="About Us">
   <Content />
   <Team />
-</Layout>
+</Layout> -->
 
 <!-- <LayoutTwo title="About Us">
   <ContentTwo />
   <TeamTwo />
 </LayoutTwo> -->
+
+<LayoutThree title="About Us">
+  <ContentFive />
+  <TeamThree />
+  <FaqTwo />
+</LayoutThree>
