@@ -1,0 +1,124 @@
+---
+interface Feature {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface SectionProps {
+  tagline: string;
+  title: string;
+  description: string;
+  imageSrc: string;
+  imageAlt: string;
+  features: Feature[];
+  imageOnLeft?: boolean;
+}
+
+interface Props {
+  sections: SectionProps[];
+  backgroundColor?: string;
+}
+
+const defaultFeatures: Feature[] = [
+  {
+    title: "Push to deploy.",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+    icon: "M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z"
+  },
+  {
+    title: "SSL certificates.",
+    description: "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.",
+    icon: "M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z"
+  },
+  {
+    title: "Database backups.",
+    description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+    icon: "M4.632 3.533A2 2 0 0 1 6.577 2h6.846a2 2 0 0 1 1.945 1.533l1.976 8.234A3.489 3.489 0 0 0 16 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234Z M4 13a2 2 0 1 0 0 4h12a2 2 0 1 0 0-4H4Zm11.24 2a.75.75 0 0 1 .75-.75H16a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75h-.01a.75.75 0 0 1-.75-.75V15Zm-2.25-.75a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-.01Z"
+  }
+];
+
+const defaultSection: SectionProps = {
+  tagline: "Deploy faster",
+  title: "A better workflow",
+  description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+  imageSrc: "https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png",
+  imageAlt: "Product screenshot",
+  features: defaultFeatures,
+  imageOnLeft: false
+};
+
+const { 
+  sections = [
+    { ...defaultSection, imageOnLeft: true },
+    { ...defaultSection, imageOnLeft: false }
+  ],
+  backgroundColor = "bg-white"
+} = Astro.props;
+---
+
+<div class={`overflow-hidden ${backgroundColor} py-10 relative`}>
+  <div class="absolute inset-0 opacity-5 pointer-events-none">
+    <div class="absolute inset-y-0 right-1/2 w-screen bg-gradient-to-r from-indigo-100 to-transparent"></div>
+    <div class="absolute inset-y-0 left-1/2 w-screen bg-gradient-to-l from-indigo-100 to-transparent"></div>
+    <svg class="absolute inset-0 h-full w-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="pattern" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="scale(0.75)">
+          <path d="M0 32V16L16 0H32V16L16 32z" fill="none" stroke="currentColor" stroke-opacity="0.2"></path>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#pattern)"></rect>
+    </svg>
+  </div>
+
+  {sections.map((section, index) => (
+    <div class={`mx-auto max-w-7xl px-6 lg:px-8 ${index > 0 ? "mt-24 sm:mt-32" : ""}`}>
+      <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 sm:gap-x-20 lg:gap-x-24 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+        <div class={`lg:${section.imageOnLeft ? "mr-auto lg:order-last" : "ml-auto"} lg:pt-4 lg:${section.imageOnLeft ? "pr-8" : "pl-8"}`}>
+          <div class="lg:max-w-lg">
+            <h2 class="text-base/7 font-semibold text-indigo-600 inline-flex items-center">
+              {section.tagline}
+              <span class="ml-2 h-px w-12 bg-indigo-600/60"></span>
+            </h2>
+            <p class="mt-2 text-3xl font-bold tracking-tight text-pretty text-gray-900 sm:text-4xl lg:text-5xl">{section.title}</p>
+            <p class="mt-6 text-lg/8 text-gray-600">{section.description}</p>
+            <dl class="mt-10 max-w-xl space-y-10 text-base/7 text-gray-600 lg:max-w-none">
+              {section.features.map(feature => (
+                <div class="relative pl-9 rounded-lg p-2">
+                  <dt class="inline font-semibold text-gray-900">
+                    <svg class="absolute top-1 left-1 size-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d={feature.icon} clip-rule="evenodd" />
+                    </svg>
+                    {feature.title}
+                  </dt>
+                  <dd class="inline">{feature.description}</dd>
+                </div>
+              ))}
+            </dl>
+            <div class="mt-12 flex items-center gap-x-8">
+              <a href="#" class="rounded-md bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
+              <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more →</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class={`flex items-center justify-center ${section.imageOnLeft ? "lg:order-first" : "lg:order-last"}`}>
+          <div class="relative flex">
+            <div class="absolute -top-16 -right-16 size-80 rounded-full blur-3xl bg-indigo-100 opacity-70 pointer-events-none"></div>
+            <div class="absolute -bottom-8 -left-8 size-40 rounded-full blur-2xl bg-indigo-200 opacity-70 pointer-events-none"></div>
+          
+            <div class="relative rounded-xl overflow-hidden shadow-2xl ring-1 ring-gray-400/10">
+              <img 
+                src={section.imageSrc} 
+                alt={section.imageAlt} 
+                class="w-full h-auto max-w-[90%] mx-auto rounded-xl lg:max-w-none object-cover" 
+                loading={index === 0 ? "eager" : "lazy"}
+              >
+              <div class="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10 pointer-events-none"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
